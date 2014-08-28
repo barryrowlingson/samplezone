@@ -1,3 +1,14 @@
+##' jitter points but keep within regions
+##'
+##' jitter points in a uniform disk but keep them within a region
+##' @title restricted jitter
+##' @param pts a SpatialPointsDataFrame of locations 
+##' @param polys a SpatialPolygonsDataFrame of regions
+##' @param radius the radius of the disk
+##' @param maxiterations limit of iterations
+##' @return A SpatialPolygonsDataFrame like pts but with new coordinates
+##' @author Barry Rowlingson
+##' @export
 rjitter <- function(pts, polys, radius, maxiterations = 100){
     original = sp::over(pts, as(polys, "SpatialPolygons"))
     if(any(is.na(original))){
