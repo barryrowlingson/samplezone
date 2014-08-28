@@ -1,8 +1,11 @@
 Package: samplezone
-Title: What the package does (short line)
+Title: Various sampling and jittering code
 Version: 0.1
 Authors@R: "Barry Rowlingson <b.rowlingson@gmail.com> [aut, cre]"
-Description: What the package does (paragraph)
-Depends: R (>= 3.0.2)
-License: Private
+Description: Some routines for spatial sampling and jittering
+Depends:
+    R (>= 3.0.2)
+License: MIT
 LazyData: true
+Imports:
+    sp

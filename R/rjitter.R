@@ -1,11 +1,11 @@
 rjitter <- function(pts, polys, radius, maxiterations = 100){
-    original = over(pts, as(polys, "SpatialPolygons"))
+    original = sp::over(pts, as(polys, "SpatialPolygons"))
     if(any(is.na(original))){
         missed = which(is.na(original))
         stop(length(missed)," points not over any regions to start with")
     }
 
-    xyOriginal = coordinates(pts)
+    xyOriginal = sp::coordinates(pts)
     xyNew = xyOriginal
     newRegion = rep(-1, length(original))
 
@@ -20,12 +20,12 @@ rjitter <- function(pts, polys, radius, maxiterations = 100){
         }
         todo = which(newRegion != original)
         xyNew[todo,] = diskjitter(xyOriginal[todo,,drop=FALSE], radius)
-        newpts = SpatialPoints(xyNew[todo,,drop=FALSE], CRS(proj4string(pts)))
-        newRegion[todo] = over(newpts, as(polys,"SpatialPolygons"))
+        newpts = sp::SpatialPoints(xyNew[todo,,drop=FALSE], sp::CRS(sp::proj4string(pts)))
+        newRegion[todo] = sp::over(newpts, as(polys,"SpatialPolygons"))
         newRegion[is.na(newRegion)]=-1
     }
 
-    SpatialPointsDataFrame(coords=xyNew, data=pts@data, proj4string=CRS(proj4string(pts)))
+    sp::SpatialPointsDataFrame(coords=xyNew, data=pts@data, proj4string=sp::CRS(sp::proj4string(pts)))
     
 }
 
